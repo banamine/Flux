@@ -1,0 +1,86 @@
+diff -ru -x images -x plugins.js Liberty1_1/assets/custom.js Liberty1_1-patched/assets/custom.js
+--- Liberty1_1/assets/custom.js	2026-10-01 15:53:22.717245750 -0700
++++ Liberty1_1-patched/assets/custom.js	2026-10-01 16:03:31.496649310 -0700
+@@ -12,15 +12,12 @@
+     // Swiping mobile galleries wwith Hammer.js
+     swipeGallery: function() {
+       setTimeout(function() {
+-        var touchGallery = document.getElementsByClassName("fancybox-wrap")[0];
+-        var mc = new Hammer(touchGallery);
+-        mc.on("panleft panright", function(ev) {
+-          if (ev.type == "panleft") {
+-            $("a.fancybox-next").trigger("click");
+-          } else if (ev.type == "panright") {
+-            $("a.fancybox-prev").trigger("click");
+-          }
+-          Theme.swipeGallery();
++        var el = document.getElementsByClassName("fancybox-wrap")[0];
++        if (!el || typeof Hammer === "undefined" || el.getAttribute("data-swipe-bound")) return;
++        el.setAttribute("data-swipe-bound", "1");
++        var mc = new Hammer(el);
++        mc.on("swipeleft swiperight", function(ev) {
++          $(ev.type === "swipeleft" ? "a.fancybox-next" : "a.fancybox-prev").trigger("click");
+         });
+       }, 500);
+     },
+diff -ru -x images -x plugins.js Liberty1_1/manifest.json Liberty1_1-patched/manifest.json
+--- Liberty1_1/manifest.json	2026-10-01 15:53:20.481245617 -0700
++++ Liberty1_1-patched/manifest.json	2026-10-01 16:03:31.496200743 -0700
+@@ -41,6 +41,11 @@
+ 			"accent": "#51A083"
+ 		},
+ 		{
++			"variation": "v5",
++			"primary": "#D4AF37",
++			"accent": "#0B172A"
++		},
++		{
+ 			"variation": "v1",
+ 			"primary": "#cca744",
+ 			"accent": "#111111"
+diff -ru -x images -x plugins.js Liberty1_1/styles/main.less Liberty1_1-patched/styles/main.less
+--- Liberty1_1/styles/main.less	2026-10-01 15:53:22.037245709 -0700
++++ Liberty1_1-patched/styles/main.less	2026-10-01 16:03:31.496572296 -0700
+@@ -37,7 +37,7 @@
+ body {
+   width: 100%;
+   height: 100%;
+-  background: #0f0f1a;
++  background: @body-bg;
+   color: #7c7c7c;
+   font: 17px/1 'Oxygen', sans-serif;
+   font-weight: 400;
+@@ -1400,17 +1400,17 @@
+ --------------------------------------------------------------------------------*/
+ 
+ #footer .wsite-form-label, #footer.form-radio-container label {
+-  color: #626262;
++  color: #b8c1d1;
+   margin-bottom: 2px;
+ }
+ 
+ #footer .wsite-form-input, #footer .wsite-search-element-input {
+-  background: #0f0f1a;
++  background: @card-bg;
+ }
+ 
+ #footer .form-select {
+-  color: #626262 !important;
+-  background: #0f0f1a !important;
++  color: #b8c1d1 !important;
++  background: @card-bg !important;
+ }
+ 
+ 
+diff -ru -x images -x plugins.js Liberty1_1/styles/variables.less Liberty1_1-patched/styles/variables.less
+--- Liberty1_1/styles/variables.less	2026-10-01 15:53:22.197245719 -0700
++++ Liberty1_1-patched/styles/variables.less	2026-10-01 16:03:31.496291160 -0700
+@@ -3,4 +3,6 @@
+ @NormalBtn: @site-primary-color;
+ @HoverBtn: lighten(@site-primary-color, 10%);
+ @BtnHighlightNormal: @site-primary-color;
+-@BtnHighlightHover: darken(@site-primary-color, 15%);
+\ No newline at end of file
++@BtnHighlightHover: darken(@site-primary-color, 15%);
++@body-bg: #0B172A;
++@card-bg: #13233D;

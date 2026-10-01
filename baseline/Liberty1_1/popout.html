@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body class='wsite-theme-light'>
+<style>
+  .popup-overlay {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 9999;
+    width: 320px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: rgba(26, 26, 26, 0.92);
+    border: 2px solid #b22222;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    padding: 15px;
+    font-family: Arial, sans-serif;
+
+    opacity: 0;                        /* Start hidden */
+    transition: opacity 1.2s ease-in;  /* Smooth fade when opacity changes */
+  }
+
+  /* All the other classes remain the same: */
+  .popup-content { position: relative; }
+  .close-btn {
+    position: absolute;
+    top: 3px;
+    right: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+  }
+  .close-btn:hover { color: #ff0000; }
+
+  .popup-title {
+    margin: 0 0 8px 0;
+    font-size: 1.4em;
+    color: #ffd700;
+    text-align: center;
+  }
+
+  .popup-tagline {
+    margin: 0 0 12px 0;
+    font-size: 0.95em;
+    color: #cccccc;
+    text-align: center;
+  }
+
+  .popup-nav {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 0.9em;
+  }
+  .popup-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 6px;
+    font-weight: bold;
+  }
+  .popup-nav a:hover {
+    color: #ffd700;
+    text-decoration: underline;
+  }
+
+  .popup-cta {
+    margin: 8px 0 0;
+    font-size: 0.85em;
+    color: #bbbbbb;
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .popup-overlay {
+      width: 90%;
+      left: 5%;
+      top: 10px;
+    }
+  }
+</style>
+
+<div style='display:none'>{title}</div>
+<div style='display:none'>{menu}</div>
+<div style='display:none'>{content}</div>
+<div style='padding: 20px; width:100%; text-align:center;'>{footer}</div>
+</body>
+</html>
